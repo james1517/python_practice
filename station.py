@@ -1,12 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
-from urllib import request
+from pprint import pprint
+import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin
 
 
 #ChromeDriverのパスを引数に指定しChromeを起動
-driver = webdriver.Chrome("C:/Program Files (x86)/Python37-32/chromedriver")
+driver = webdriver.Chrome("c:/driver/chromedriver")
 #指定したURLに遷移
 driver.get("https://transit.yahoo.co.jp/")
 
@@ -50,7 +50,13 @@ driver.find_element_by_id("searchModuleSubmit").click()
 
 #カレントページのURLを取得
 cur_url = driver.current_url
-html = request.urlopen(cur_url)
-soup = BeautifulSoup(html,"html.parser")
-for i in soup.find_all("li"):
-    print(urljoin(cur_url, i.get(".time")))
+
+# POOL_MNG = PoolManager()
+HTML = requests.get(cur_url)
+SOUP = BeautifulSoup(HTML.content, "html.parser")
+pprint(SOUP.select('#rsltlst .time'))
+
+# html = request.urlopen(cur_url)
+# soup = BeautifulSoup(html,"html.parser")
+# for i in soup.find_all("li"):
+#     print(urljoin(cur_url, i.get(".time")))
