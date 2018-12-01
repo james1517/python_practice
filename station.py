@@ -54,9 +54,9 @@ cur_url = driver.current_url
 # POOL_MNG = PoolManager()
 HTML = requests.get(cur_url)
 SOUP = BeautifulSoup(HTML.content, "html.parser")
-pprint(SOUP.select('#rsltlst .time'))
-
-# html = request.urlopen(cur_url)
-# soup = BeautifulSoup(html,"html.parser")
-# for i in soup.find_all("li"):
-#     print(urljoin(cur_url, i.get(".time")))
+tmp = SOUP.select('#rsltlst .time span.mark')
+tmpA = tmp[0]
+print(tmpA)
+print("所要時間：" + tmpA.getText())
+# print(SOUP.select('#rsltlst .time span.mark').getText())
+# print(SOUP.select('#rsltlst .fare span.mark').getText())
